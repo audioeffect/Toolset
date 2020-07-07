@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+html,body,p{
+	font: 14px Source Sans Pro;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+}
+div{
+	font-size: 0px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 100%;
+}
+h1{
+	font: bold 16px Source Sans Pro;
+	padding: 0;
+	margin: 0;
+}
+input{
+	border: solid 1px;
+	border-radius: 2px;
+	height: 25px;
+	padding: 0 5px;
+	width: 176px;
+}
+button{
+	border: solid 2px;
+	border-radius: 4px;
+	font: 14px Source Sans Pro;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	width: 100px;
+}
+
+#canvas{
+	background: #000000;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	visibility: hidden;
+	z-index: -1;
+}
+#header{
+	border: none;
+	height: 51px;
+	width: 100%;
+}
+#add-tab{
+	border: solid 1px;
+	border-radius: 2px;
+	font: 14px Source Sans Pro;
+	height: 27px;
+	position: relative;
+	top: 0;
+	width: 27px;
+}
+#add-tab:hover{
+	box-shadow: 0 0 5px 0 #000000;
+	top: -1px;
+}
+#tabs{
+	border-bottom: solid 1px;
+	border-radius: 0;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 10px;
+	position: relative;
+	text-align: left;
+	width: 92%;
+	z-index: 1;
+}
+#panel{
+	border: solid 1px;
+	border-radius: 0 0 0 4px;
+	border-top: none;
+	bottom: 25px;
+	left: 0;
+	margin: 0 auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 10px;
+	position: absolute;
+	right: 0;
+	top: 71px;
+	width: 92%;
+	visibility: default;
+	z-index: 2;
+}
+#feedback{
+	bottom: 0;
+	font: 14px Source Sans Pro;
+	margin: 0 auto;
+	left: 0;
+	padding: 0 0 3px 0;
+	position: fixed;
+	right: 0;
+	text-align: center;
+	width: 92%;
+	z-index: 3;
+}
+#feedback-link{
+	cursor: pointer;
+	padding: 3px;
+	text-decoration: underline;
+}
+#suggestion-box{
+	bottom: 0;
+	height: 70%;
+	left: 0;
+	margin: auto;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+	visibility: visible;
+	width: 70%;
+	z-index: 5;
+}
+#suggestion-box.inactive{
+	visibility: hidden;
+}
+#suggestion-box textarea{
+	border: solid 1px;
+	height: 70%;
+	margin: -1px 0 0 0;
+	padding: 5px;
+	resize: none;
+	width: 100%;
+}
+#submit-button{
+	background: #99cc33;
+	border: solid 1px;
+	border-radius: 0 0 4px 4px;
+	border-top: none;
+	color: #444444;
+	float: right;
+	margin-right: -12px;
+}
+#cancel-button, #suggestion-title{
+	float: left;
+}
+#suggestion-title{
+	background: #ffffff;
+	margin-left: -1px;
+}
+#cancel-button{
+	background: #ff4444;
+}
+#overlay{
+	background: #000000;
+	bottom: 0;
+	opacity: 0.6;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 4;
+}
+#info{
+	background: #ffffff;
+	border: solid 1px #333333;
+	box-shadow: 1px 1px 5px 0 #000000;
+	height: auto;
+	left: 0;
+	padding: 1px;
+	position: absolute;
+	top: 0;
+	visibility: hidden;
+	width: auto;
+	z-index: 5;
+}
+#shortcuts, #themes{
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#shortcuts-list, #themes-list{
+	box-shadow: 0 0 8px 0 #000000;
+	height: 60px;
+	position: absolute;
+	top: 5px;
+	width: 0;
+	z-index: 4;
+}
+#shortcuts-list{
+	border-radius: 4px 0 0 4px;
+	right: -35px;
+}
+#shortcuts-list.hover{
+	cursor: pointer;
+	right: -20px;
+}
+#shortcuts-list p{
+	font: 14px Source Sans Pro;
+	left: -4px;
+	position: absolute;
+	top: 23px;
+	transform: rotate(-90deg);
+}
+#themes-list{
+	border-radius: 0 4px 4px 0;
+	left: -35px;
+}
+#themes-list.hover{
+	cursor: pointer;
+	left: -20px;
+}
+#themes-list p{
+	font: 14px Source Sans Pro;
+	left: 4px;
+	position: absolute;
+	top: 23px;
+	transform: rotate(90deg);
+}
+#themes-list.expanded, #shortcuts-list.expanded{
+	background: none;
+	border-radius: 0;
+	box-shadow: none;
+	height: 100%;
+	list-style-type: none;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0;
+	top: 0;
+	width: 110px;
+	z-index: 5;
+}
+#shortcuts-list.expanded{
+	right: 0;
+}
+#themes-list.expanded{
+	direction: rtl;
+	left: 0;
+}
+#themes-list.expanded p, #shortcuts-list.expanded p{
+	font-size: 0px;
+}
+.expanded li{
+	background: #000000;
+	border: solid 2px;
+	border-radius: 4px;
+	color: #ffffff;
+	cursor: pointer;
+	font: 14px Source Sans Pro;
+	height: 20px;
+	list-style-type: none;
+	margin: 5px;
+	padding: 5px 5px 0 5px;
+	width: 70px;
+}
+.expanded li:hover{
+	box-shadow: 0 0 10px 0 #ffffff;
+	position: relative;
+	top: -1px;
+}
+#info span{
+	color: #000000;
+	font: 12px Calibri;
+}
+
+.tab, #tab-left, #tab-right, .tab-close, #footer button, #suggestion-title, #cancel-button{
+	border-width: 1px;
+	height: 20px;
+	position: relative;
+}
+.tab, #tab-left, #tab-right, .tab-close{
+	border-bottom: solid 1px;
+	left: -11px;
+	margin: 1px 0 0 0;
+}
+.tab, #suggestion-title{
+	border-radius: 0 4px 0 0;
+	border-left: none;
+	padding: 0 2px 0 2px;
+	text-align: right;
+	width: auto;
+}
+.tab-close, #cancel-button{
+	border-radius: 4px 0 0 0;
+	border-right: none;
+	padding-right: 0;
+	width: 20px;
+}
+#tab-left, #tab-right{
+	border-radius: 4px 4px 0 0;
+	display: none;
+	width: 20px;
+}
+#panel button{
+	margin: 2px;
+	padding: 0;
+}
+#panel button:hover{
+	box-shadow: 0 0 5px 0 #000000;
+	position: relative;
+	top: -1px;
+}
+.inactive-page{
+	visibility: hidden;
+}
+.tab.inactive{
+	border: solid 1px;
+	border-left: none;
+}
+.tab-close.inactive{
+	border: solid 1px;
+	border-right: none;
+}
+#tab-left, #tab-right{
+	border: solid 1px;
+}
+.inactive-overlay{
+	visibility: hidden;
+}
+#input-error{
+	height: 25px;
+	left: -26px;
+	margin: 0 auto;
+	position: absolute;
+	right: 0;
+	top: 24px;
+	width: 186px;
+}
+#error1.active{
+	background: #ff0000;
+	text-align: center;
+	border: none;
+	border-radius: 12px;
+	color: #ffffff;
+	font: bold 12px Source Sans Pro;
+	height: 14px;
+	padding: 0 1px 0 0;
+	position: absolute;
+	top: 2px;
+	bottom: 0;
+	right: 3px;
+	width: 14px;
+	z-index: 3;
+}
+#error1.inactive{
+	display: none;
+}
+#error1text.active, #error2text.active{
+	background: none;
+	font: bold 14px Source Sans Pro;
+	border: none;
+	left: 0;
+	width: 145px;
+	height: 15px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#error1text.inactive, #error2text.inactive{
+	display: none;
+}
+#error2text{
+	background: #ffffff;
+}
+@media (max-width: 460px){
+	#panel{
+		border-radius: 0;
+	}
+}
+@media (max-width: 310px){
+	input{
+		font-size: 14px;
+		width: 60%;
+	}
+	h1{
+		font-size: 14px;
+	}
+	#header{
+		margin: 0;
+		text-align: center;
+	}
+	#add-tab{
+		top: 0px;
+	}
+	#add-tab:hover{
+		top: -1px;
+	}
+	#tabs, #footer{
+		left: 1px;
+		white-space: nowrap;
+		text-align: left;
+	}
+	#tab-left, #tab-right, .tab, .tab-close{
+		display: inline;
+	}
+	#tab-left, #tab-right{
+		float: left;
+	}
+	.tab{
+		padding-left: 0;
+		padding-right: 4px;
+	}
+	.tab-close{
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.tab.inactive, .tab-close.inactive{
+		display: none;
+		float: none;
+	}
+	#panel{
+		border-radius: 0;
+	}
+	#panel button{
+		margin-left: 0;
+	}
+	#suggestion-title{
+		overflow: visible;
+		white-space: nowrap;
+	}
+	#submit-button{
+		padding: 0 5px;
+		width: auto;
+	}
+	#cancel-button{
+		width: 15px;
+	}
+	#tabs button, #suggestion-title, #suggestion-box button{
+		font-size: 12px;
+	}
+	#input-error{
+		height: 20px;
+		left: 0;
+		margin: 0 auto;
+		position: absolute;
+		right: 0;
+		top: 24px;
+		width: 0px;
+	}
+	#error1.active{
+		top: 0;
+		bottom: 0;
+		right: 3px;
+	}
+	#error1text.active, #error2text.active{
+		display: none;
+	}
+}
+@media (max-height: 178px){
+	#panel{
+		height: 60px;
+		position: relative;
+		top: -1px;
+	}
+	#feedback{
+		top: 155px;
+	}
+}
+@media (min-width: 621px) and (min-height: 401px){
+	h1{
+		font-size: 22px;
+	}
+	input{
+		font-size: 18px;
+	}
+	#add-tab{
+		top: -1px;
+	}
+	#add-tab:hover{
+		top: -2px;
+	}
+	#panel{
+		top: 89px;
+	}
+	#panel button{
+		font-size: 20px;
+		height: 45px;
+		width: 150px;
+	}
+	#tabs{
+		margin-top: 18px; 
+	}
+	#tab-left, #tab-right, .tab, .tab-close{
+		font-size: 18px;
+		height: 30px;
+		top: -10px;
+	}
+	#tab-left, #tab-right{
+		width: 30px;
+	}
+	#themes-list.expanded, #shortcuts-list.expanded{
+		width: 125px;
+	}
+	.expanded li{
+		font-size: 18px;
+		padding: 5px 5px 7px 5px;
+		width: 85px;
+	}
+	#input-error{
+		top: 32px;
+	}
+}

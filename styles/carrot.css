@@ -1,0 +1,40 @@
+#header,#panel,#tabs{
+	background: transparent;
+	border-color: #444444;
+	color: #444444;
+}
+
+#error2text.active{
+	background: #ff9933;
+}
+
+.tab,.tab-close{
+	background: #ff9933;
+	border-left-color: #444444;
+	border-top-color: #444444;
+	border-right-color: #444444;
+	border-bottom-color: #ff9933;
+	color: #444444;
+}
+
+.tab.inactive,.tab-close.inactive{
+	border-bottom-color: #444444;
+}
+
+body,#input,#add-tab,#tab-left,#tab-right,#panel button,#shortcuts-list li{
+	background: #ff9933;
+	border-color: #444444 !important;
+	color: #444444;
+}
+
+#shortcuts-list, #themes-list{
+	background: #444444;
+	border-color: #ff9933;
+}
+#shortcuts-list, #themes-list p{
+	color: #ff9933;
+}
+
+#canvas{
+	visibility: hidden;
+}

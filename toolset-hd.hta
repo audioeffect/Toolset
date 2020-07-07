@@ -1,0 +1,145 @@
+<html>
+<head>
+	<title>Toolset - Help Desk</title>
+	<meta http-equiv="x-ua-compatible" content="IE=9, chrome" />
+	<hta:application
+		border='thick'
+		maximizeButton='yes'
+		scroll='no'
+		sysmenu='yes'
+	/>
+<!---------------------------------------------
+	Import external scripts and stylesheets
+---------------------------------------------->
+	<link rel="stylesheet" type="text/css" href="styles\toolset.css">
+	<link rel="stylesheet" type="text/css" href="styles\chalk.css" id='chalk'>
+	<link rel="stylesheet" type="text/css" href="styles\charcoal.css" id='charcoal' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\coral.css" id='coral' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\carrot.css" id='carrot' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\sunglow.css" id='sunglow' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\android.css" id='android' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\sky.css" id='sky' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\amethyst.css" id='amethyst' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\glyph.css" id='glyph' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\reflect.css" id='reflect' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\bg.css" id='bg' disabled>
+	<link rel="stylesheet" type="text/css" href="styles\zim.css" id='zim' disabled>
+	<script src="jscripts\toolset.js" type="text/javascript" language="javascript"></script>
+	<script src="jscripts\lib.js" type="text/javascript" language="javascript"></script>
+	<script src="jscripts\theme.js" type="text/javascript" language="javascript"></script>
+	<script src="jscripts\glyph.js" type="text/javascript" language="javascript"></script>
+	<script src="jscripts\reflect.js" type="text/javascript" language="javascript"></script>
+	<script src="jscripts\bg.js" type="text/javascript" language="javascript"></script>
+	<script src="jscripts\zim.js" type="text/javascript" language="javascript"></script>
+	<script src="vbscripts\toolset.vbs" type="text/vbscript" language="vbscript"></script>
+</head>
+<!----------------
+	Toolset UI
+----------------->
+<body>
+
+<!--------------------------------------------------------
+Canvas is used to draw backgrounds for different themes-->
+	<canvas id='canvas'></canvas>
+<!-------------------------------------------------------
+User inputs a hostname or IP and clicks the add button-->
+	<div id='header'>
+		<h1 id='title'>Computer Name:</h1>
+		<input id='input' value=''></input>
+		<button id='add-tab'>+</button>
+<!---------------------------------------
+Warn the user of improper button usage-->
+		<div id='input-error'>
+			<div id='error1' class='inactive'>!</div>
+			<div id='error1text' class='inactive' style='color:#ff0000;'>Enter computer name</div>
+			<div id='error2text' class='inactive' style='color:#ff0000;'>Click add(+) button</div>
+		</div>
+	</div>
+<!------------------------------------------------------------
+Dynamically created tabs are added with external JavaScript-->
+	<div id='tabs'>
+		<button id='tab-left'>&lt;&lt;</button>
+		<button id='tab-right'>&gt;&gt;</button>
+	</div>
+<!---------------------------------------
+Buttons here require a hostname to run-->
+	<div id='panel'>
+		<button id='remote' onclick='RunCommand("remote")' title='Remote connect to PC with Remote Viewer'>Remote</button>
+		<button id='rdp' onclick='RunCommand("rdp")' title='Remote connect to PC with RDP'>RDP</button>
+		<button id='ping' onclick='RunCommand("ping")' title='Run continuous ping on PC'>Ping</button>
+		<button id='restart' onclick='RunCommand("restart")' title='Restart remote PC'>Restart</button>
+		<button id='psexec' onclick='RunCommand("psexec")' title='Start command line on remote PC'>PSExec</button>
+		<button id='unc' onclick='RunCommand("unc")' title='Open C drive on remote computer'>UNC</button>
+		<button id='gpupdate' onclick='RunCommand("gpupdate")' title='Remotely update group policy'>GPUpdate</button>
+		<button id='qwinsta' onclick='RunCommand("qwinsta")' title='View and logoff users remotely'>User Login</button>
+		<button id='deleteupdates' onclick='RunCommand("deleteupdates")' title='Remotely run script to delete SoftwareDistribution'>DeleteUpdates</button>
+		<button id='deletecache' onclick='RunCommand("deletecache")' title='Remotely run script to delete ccmcache'>DeleteCache</button>
+		<button id='actions' onclick='RunCommand("actions")' title='Remotely run Configuration Management actions'>Actions</button>
+		<button id='sccm-wmi' onclick='RunCommand("sccmwmi")' title='Repair SCCM/WMI on remote PC'>SCCM/WMI Fix</button>
+		<button id='wmi' onclick='RunCommand("wmi")' title='Repair WMI on remote PC'>WMI Fix</button>
+		<button id='mapprinters' onclick='RunCommand("mapprinters")' title='Update printer text files'>Map Printers</button>
+		<button id='fastaccounts' onclick='RunCommand("fastaccounts")' title='Create fast account text file'>Fast Accounts</button>
+		<button id='unloadtrend' onclick='RunCommand("unloadtrend")' title='Remotely unload Trend OfficeScan'>Unload Trend</button>
+		<button id='nslookup' onclick='RunCommand("nslookup")' title='Resolve DNS name (also works on IPs and URLs)'>NSLookup</button>
+		<button id='cmrcservice' onclick='RunCommand("cmrcservice")' title='Manually start Config. Manager Remote Control Service on remote PC'>CmRcService</button>
+		<button id='sfc' onclick='RunCommand("sfc")' title='Run System File Checker on remote PC'>SFC</button>
+		<button id='uptime' onclick='RunCommand("uptime")' title='Check the uptime on remote PC'>Uptime</button>
+		<button id='killkiosk' onclick='RunCommand("killkiosk")' title='Kill Kiosk.exe on remote PC'>Kill Kiosk</button>
+		<button id='mbamstatus' onclick='RunCommand("mbamstatus")' title='Check Bitlocker encryption status on remote PC'>MBAM Status</button>
+		<button id='winver' onclick='RunCommand("winver")' title='Show Windows version and build on remote PC'>WinVer</button>
+		<button id='tasks' onclick='RunCommand("tasks")' title='Run tasklist and taskkill on remote PC'>Tasks</button>
+		<button id='autolog' onclick='RunCommand("autologon")' title='Toggle AutoAdminLogon (Fast Account) on remote PC'>AutoLogon</button>
+	</div>
+<!----------------------------------------------
+Buttons here DO NOT require a hostname to run-->
+	<div id='shortcuts'>
+		<ul id='shortcuts-list'>
+			<p>Links</p>
+			<li id='cmd' onclick='RunUtilities("cmd")' title='Open Command Prompt as admin'>CMD</li>
+			<li id='collect' onclick='RunUtilities("collect")' title='Open Collect window'>Collect</li>
+			<li id='loaner' onclick='RunUtilities("loaner")' title='Run Loaner Systems'>Loaner</li>
+			<li id='mmc' onclick='RunUtilities("mmc")' title='Open Computer Management'>MMC</li>
+			<li id='scripts' onclick='RunUtilities("scripts")' title='Open Scripts folder for additional scripts'>Scripts</li>
+			<li id='shutdown' onclick='RunUtilities("shutdown")' title='Open Shutdown GUI'>Restart</li>
+		<ul>
+	</div>
+<!--------------------
+Slide out theme bar-->
+	<div id='themes'>
+		<ul id='themes-list'>
+			<p>Themes</p>
+			<li id='chalkTheme' class='themeInactive' style='background:#f3f3f3; border-color: #eeeeee; color:#000000;' onclick='updateTheme("chalk")' title='Chalk Theme'>Chalk</li>
+			<li id='charcoalTheme' class='theme' style='background:#333333; border-color: #eeeeee;' onclick='updateTheme("charcoal")' title='Charcoal Theme'>Charcoal</li>
+			<li id='coralTheme' class='theme' style='background:#ff4444; border-color: #eeeeee;' onclick='updateTheme("coral")' title='Coral Theme'>Coral</li>
+			<li id='carrotTheme' class='theme' style='background:#ff9933; border-color: #eeeeee;' onclick='updateTheme("carrot")' title='Carrot Theme'>Carrot</li>
+			<li id='sunglowTheme' class='theme' style='background:#ffcc33; border-color: #eeeeee;' onclick='updateTheme("sunglow")' title='Sunglow Theme'>Sunglow</li>
+			<li id='androidTheme' class='theme' style='background:#99cc33; border-color: #eeeeee;' onclick='updateTheme("android")' title='Android Theme'>Android</li>
+			<li id='skyTheme' class='theme' style='background:#00aaff; border-color: #eeeeee;' onclick='updateTheme("sky")' title='Sky Theme'>Sky</li>
+			<li id='amethystTheme' class='theme' style='background:#9966cc; border-color: #eeeeee;' onclick='updateTheme("amethyst")' title='Amethyst Theme'>Amethyst</li>
+			<li id='glyphTheme' class='theme' style='background:#000000; border-color: #eeeeee;' onclick='updateTheme("glyph")' title='Glyph Theme'>Glyph</li>
+			<li id='reflectTheme' class='theme' style='background:#000000; border-color: #eeeeee;' onclick='updateTheme("reflect")' title='Reflect Theme'>Reflect</li>
+			<li id='bgTheme' class='theme' style='background:#000000; border-color: #eeeeee;' onclick='updateTheme("bg")' title='Background Theme'>BG</li>
+			<!-- <li id='zimTheme' class='theme' style='background:#000000; border-color: #eeeeee;' onclick='updateTheme("zim")' title='Invade Theme'>Zim</li> -->
+		</ul>
+<!---------------------
+Feedback/Suggestions-->
+	<div id='feedback'>
+		<span id='feedback-link' title='Feedback' onclick='toggleSuggestion("open")'>[+]feedback<span>
+	</div>
+	<div id='suggestion-box' class='inactive'>
+		<button id='cancel-button' onclick='toggleSuggestion("close")'>X</button>
+		<button id='suggestion-title'>Write a suggestion below:</button>
+		<textarea id='suggestiontext'></textarea>
+		<button id='submit-button' onclick='submitSuggestion()'>Submit</button>
+	</div>
+<!---------------------------------------------------------------
+Overlay to limit user interaction while the theme list is open-->
+		<div id='overlay' class='inactive-overlay'></div>
+	</div>
+<!------------------------------------------------------------
+Panel stats - Currently shows inner window width and height-->
+	<div id='info'>
+		<span id='window-info'></span>
+	</div>
+</body>
+</html>
